@@ -21,6 +21,7 @@ def test_pages_availability(client, name, args):
     response = client.get(url)
     assert response.status_code == HTTPStatus.OK
 
+
 @pytest.mark.parametrize(
     'parametrized_client, expected_status',
     (
@@ -51,4 +52,3 @@ def test_redirect_for_anonymous_client(client, name, comment_id_for_args):
     expected_url = f'{login_url}?next={url}'
     response = client.get(url)
     assertRedirects(response, expected_url)
-

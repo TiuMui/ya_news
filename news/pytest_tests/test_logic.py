@@ -58,7 +58,10 @@ def test_author_can_delete_comment(
     assert Comment.objects.count() == 0
 
 
-def test_user_cant_delete_comment_of_another_user(reader_client, comment_id_for_args):
+def test_user_cant_delete_comment_of_another_user(
+    reader_client,
+    comment_id_for_args
+):
     url = reverse('news:delete', args=comment_id_for_args)
     response = reader_client.post(url)
     assert response.status_code == HTTPStatus.NOT_FOUND
@@ -74,7 +77,7 @@ def test_author_can_edit_comment(
 ):
     news_url = reverse('news:detail', args=news_id_for_args)
     url_to_comments = news_url + '#comments'
-    url = reverse('news:edit', args=comment_id_for_args) 
+    url = reverse('news:edit', args=comment_id_for_args)
     response = author_client.post(url, data=form_data)
     assertRedirects(response, url_to_comments)
     comment.refresh_from_db()

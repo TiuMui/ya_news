@@ -2,8 +2,6 @@ from django.conf import settings
 from django.urls import reverse
 import pytest
 
-from news.forms import CommentForm
-
 
 @pytest.mark.django_db
 @pytest.mark.usefixtures('many_news')
