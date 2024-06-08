@@ -106,7 +106,6 @@ def test_user_cant_edit_comment_of_another_user(
     url = url_calculation['news:edit_comment_id']
     response = reader_client.post(url, data=form_data)
     assert response.status_code == HTTPStatus.NOT_FOUND
-    comment.refresh_from_db()
     from_db_comment = Comment.objects.get(id=comment.id)
     assert from_db_comment.text == true_text_comment
     assert from_db_comment.author == author
