@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
+
+import pytest
 from django.conf import settings
 from django.test.client import Client
+from django.urls import reverse
 from django.utils import timezone
-import pytest
 
 from news.models import Comment, News
 
@@ -61,16 +63,6 @@ def comment(news, author):
 
 
 @pytest.fixture
-def news_id_for_args(news):
-    return (news.id,)
-
-
-@pytest.fixture
-def comment_id_for_args(comment):
-    return (comment.id,)
-
-
-@pytest.fixture
 def many_news():
     today = datetime.today()
     all_news = [
@@ -85,5 +77,13 @@ def many_news():
 
 
 @pytest.fixture
-def form_data():
-    return {'text': 'Текст комментария', }
+def url_calculation(news, comment):
+    return {
+        'news:home': reverse('news:home'),
+        'users:login': reverse('users:login'),
+        'users:logout': reverse('users:logout'),
+        'users:signup': reverse('users:signup'),
+        'news:detail_news.id': reverse('news:detail', args=(news.id,)),
+        'news:edit_comment_id': reverse('news:edit', args=(comment.id,)),
+        'news:delete_comment_id': reverse('news:delete', args=(comment.id,))
+    }
