@@ -9,6 +9,7 @@ author = pytest.lazy_fixture('author_client')
 status_ok = HTTPStatus.OK
 status_not_found = HTTPStatus.NOT_FOUND
 
+
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     'url_key, parametrized_client, status',
